@@ -1,0 +1,15 @@
+{
+  "name": "urfu-2015-tasks",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "eslint .",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.13.2",
+    "express": "~4.13.1",
+    "hbs": "~3.1.0",
+    "morgan": "~1.6.1"
+  }
+}

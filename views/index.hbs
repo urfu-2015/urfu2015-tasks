@@ -1,0 +1,15 @@
+<main class="container">
+    <h1>{{title}}</h1>
+
+    {{#each categories}}
+    <h2>{{title}}</h2>
+    <ul class="list-group">
+        {{#each tasks}}
+            <li class="list-group-item"><a href="/{{name}}">{{title}}</a></li>
+        {{/each}}
+    </ul>
+    {{/each}}
+</main>
+<footer class="container">
+    &copy; 2016
+</footer>
