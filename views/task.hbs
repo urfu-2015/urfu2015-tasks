@@ -1,7 +1,14 @@
+<div class="container"><a href="/">&leftarrow; вернуться на главную</a></div>
 <main class="container">
-    <h1>{{title}}</h1>
+    <div class="col-md-9">{{{text}}}</div>
+    <div class="col-md-3">
+        <ul class="nav nav-pills">
+            {{#each tasks}}
+                <li class="{{#if active}}active{{/if}}"><a href="/{{name}}">{{title}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
 
-    {{{text}}}
 </main>
 <footer class="container">
     &copy; 2016

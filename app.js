@@ -1,6 +1,7 @@
 const path = require('path');
 
 const express = require('express');
+const config = require('config');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 
@@ -15,7 +16,7 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || config.get('server.port')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
