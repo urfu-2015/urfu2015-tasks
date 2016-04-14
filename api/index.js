@@ -1,3 +1,5 @@
+'use strict';
+
 const got = require('got');
 const config = require('config');
 const github = require('./github');
@@ -31,8 +33,21 @@ function getTaskInfo(task, readme) {
         });
 }
 
+let reposQuery;
+function getRepositories() {
+    if (!reposQuery) {
+        reposQuery = github.getRepos(organization)
+            .then(res => {
+                reposQuery = null;
+                return res;
+            });
+    }
+
+    return reposQuery;
+}
+
 exports.getTasks = category => {
-    return github.getRepos(organization)
+    return getRepositories()
         .then(tasks => filterTasks(tasks, category))
         .then(getTasksInfo);
 };
