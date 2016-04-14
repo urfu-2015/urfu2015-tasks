@@ -4,7 +4,11 @@ const got = require('got');
 const config = require('config');
 const github = require('./github');
 
+const Cache = require('../lib/cache');
+
 const organization = config.get('organization');
+
+const cache = new Cache();
 
 function filterTasks(tasks, category) {
     return tasks.filter(task => {
@@ -46,10 +50,16 @@ function getRepositories() {
     return reposQuery;
 }
 
-exports.getTasks = category => {
+function getTasks(category) {
     return getRepositories()
         .then(tasks => filterTasks(tasks, category))
         .then(getTasksInfo);
+}
+
+exports.getTasks = category => {
+    const cacheKey = `tasks.${category}`;
+
+    return cache.memoize(cacheKey, 5 * 60, getTasks.bind(null, category));
 };
 
 exports.getTask = task => {
