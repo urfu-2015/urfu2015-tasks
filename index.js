@@ -1,3 +1,5 @@
+'use strict';
+
 require('debug-http')();
 if (process.env.DEMO || process.env.RECORD) {
     require('./mock-requests');
@@ -8,9 +10,16 @@ const os = require('os');
 
 if (cluster.isMaster) {
     const cpus = os.cpus().length;
-    for (var i = 0; i < cpus; i++) {
+    for (let i = 0; i < cpus; i++) {
         cluster.fork();
     }
+
+    cluster.on('exit', (worker, code) => {
+        if (code !== 0 && !worker.suicide) {
+            console.log('Worker crashed. Starting a new worker');
+            cluster.fork();
+        }
+    });
 } else {
     const app = require('./app.js');
 
