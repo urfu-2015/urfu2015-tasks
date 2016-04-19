@@ -17,7 +17,7 @@ function getTasksInfo(tasks) {
 }
 
 function downloadReadme(path) {
-    return got(path, {protocol: 'https:'})
+    return got(path)
         .then(response => response.body);
 }
 

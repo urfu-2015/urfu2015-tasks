@@ -1,4 +1,7 @@
 require('debug-http')();
+if (process.env.DEMO || process.env.RECORD) {
+    require('./mock-requests');
+}
 
 const app = require('./app.js');
 
